@@ -37,6 +37,7 @@ export const Footer = () => {
               <li><Link to="/shop?category=cats" className="hover:text-primary transition-colors">Cats</Link></li>
               <li><Link to="/shop?category=birds" className="hover:text-primary transition-colors">Birds</Link></li>
               <li><Link to="/shop?category=small-pets" className="hover:text-primary transition-colors">Small Pets</Link></li>
+              <li><Link to="/compare" className="hover:text-primary transition-colors">Compare</Link></li>
               <li><Link to="/gift-cards" className="hover:text-primary transition-colors">Gift Cards</Link></li>
               <li><Link to="/subscriptions" className="hover:text-primary transition-colors">Subscriptions</Link></li>
             </ul>

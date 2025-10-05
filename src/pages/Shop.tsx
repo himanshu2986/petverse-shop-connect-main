@@ -47,6 +47,9 @@ const Shop = () => {
         query = query.ilike("name", `%${searchQuery}%`);
       }
 
+      // Apply price range filter in the query
+      query = query.gte("price", priceRange[0]).lte("price", priceRange[1]);
+
       if (sortBy === "price-asc") {
         query = query.order("price", { ascending: true });
       } else if (sortBy === "price-desc") {
@@ -60,10 +63,7 @@ const Shop = () => {
       const { data, error } = await query;
       if (error) throw error;
 
-      const filtered = data?.filter(
-        (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
-      );
-      setProducts(filtered || []);
+      setProducts(data || []);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {

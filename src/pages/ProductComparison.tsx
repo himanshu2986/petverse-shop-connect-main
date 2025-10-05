@@ -1,15 +1,22 @@
 import { PageBanner } from "@/components/PageBanner";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useComparison } from "@/contexts/ComparisonContext";
 import { Link } from "react-router-dom";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const ProductComparison = () => {
   const { comparisonList, removeFromComparison } = useComparison();
 
   return (
     <div>
-      <PageBanner title="Product Comparison" />
+      <PageBanner title="Product Comparison" imageUrl="/assets/hero-pets.jpg" />
       <div className="container mx-auto px-4 py-12">
         {comparisonList.length === 0 ? (
           <div className="text-center">
@@ -21,34 +28,59 @@ const ProductComparison = () => {
             </Link>
           </div>
         ) : (
-          <Card>
-            <CardHeader>
-              <CardTitle>Compare Products</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {comparisonList.map((product) => (
-                  <div key={product.id} className="border rounded-lg p-4">
-                    <img
-                      src={product.image_url || "/placeholder.svg"}
-                      alt={product.name}
-                      className="w-full h-48 object-cover mb-4"
-                    />
-                    <h3 className="font-semibold text-lg">{product.name}</h3>
-                    <p className="text-primary font-bold text-xl">${product.price.toFixed(2)}</p>
-                    <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
-                    <Button
-                      variant="destructive"
-                      className="mt-4 w-full"
-                      onClick={() => removeFromComparison(product.id)}
-                    >
-                      Remove
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="border rounded-lg overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-1/4 font-bold text-lg">Feature</TableHead>
+                  {comparisonList.map((product) => (
+                    <TableHead key={product.id} className="w-1/4">
+                      <div className="flex flex-col items-center text-center">
+                        <img
+                          src={product.image_url || "/placeholder.svg"}
+                          alt={product.name}
+                          className="w-32 h-32 object-cover mb-4 rounded-md"
+                        />
+                        <h3 className="font-semibold text-lg">{product.name}</h3>
+                      </div>
+                    </TableHead>
+                  ))}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-semibold">Price</TableCell>
+                  {comparisonList.map((product) => (
+                    <TableCell key={product.id} className="text-center">
+                      <p className="text-primary font-bold text-xl">${product.price.toFixed(2)}</p>
+                    </TableCell>
+                  ))}
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-semibold">Description</TableCell>
+                  {comparisonList.map((product) => (
+                    <TableCell key={product.id} className="text-sm text-muted-foreground text-center">
+                      {product.description}
+                    </TableCell>
+                  ))}
+                </TableRow>
+                <TableRow>
+                  <TableCell></TableCell>
+                  {comparisonList.map((product) => (
+                    <TableCell key={product.id} className="text-center">
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => removeFromComparison(product.id)}
+                      >
+                        Remove
+                      </Button>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
         )}
       </div>
     </div>

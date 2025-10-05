@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Dog, Cat, Bird, Rabbit } from "lucide-react";
+import { ArrowRight, Dog, Cat, Bird, Rabbit, ShieldCheck, Truck, Users } from "lucide-react";
 
 const Index = () => {
   const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
@@ -118,6 +118,30 @@ const Index = () => {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose PetVerse?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6">
+              <ShieldCheck className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <h3 className="text-xl font-semibold mb-2">Premium Quality</h3>
+              <p className="text-muted-foreground">We source only the best products for your pets, ensuring their health and happiness.</p>
+            </div>
+            <div className="text-center p-6">
+              <Truck className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <h3 className="text-xl font-semibold mb-2">Fast Shipping</h3>
+              <p className="text-muted-foreground">Get your pet's favorites delivered to your door with our reliable and speedy shipping.</p>
+            </div>
+            <div className="text-center p-6">
+              <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <h3 className="text-xl font-semibold mb-2">Expert Support</h3>
+              <p className="text-muted-foreground">Our team of pet lovers is here to help you with any questions you may have.</p>
+            </div>
+          </div>
         </div>
       </section>
 

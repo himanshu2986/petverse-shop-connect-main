@@ -4,8 +4,19 @@ import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+type Post = {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  image_url: string;
+  profiles: {
+    full_name: string;
+  } | null;
+};
+
 const Blog = () => {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,8 +24,8 @@ const Blog = () => {
       setLoading(true);
       try {
         const { data, error } = await supabase
-          .from("posts")
-          .select("*")
+          .from("blogs")
+          .select("*, profiles(full_name)")
           .order("created_at", { ascending: false });
 
         if (error) throw error;
@@ -52,6 +63,11 @@ const Blog = () => {
                   />
                   <CardHeader>
                     <CardTitle>{post.title}</CardTitle>
+                    {post.profiles && (
+                      <p className="text-sm text-muted-foreground">
+                        By {post.profiles.full_name}
+                      </p>
+                    )}
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground line-clamp-3">{post.excerpt}</p>
