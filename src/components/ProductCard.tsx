@@ -1,12 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, ShoppingCart, Star } from "lucide-react";
+import { Heart, ShoppingCart, Star, GitCompare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useComparison } from "@/contexts/ComparisonContext";
 
 interface ProductCardProps {
   id: string;
@@ -16,10 +17,12 @@ interface ProductCardProps {
   rating: number | null;
   reviews_count: number | null;
   stock: number;
+  description: string;
 }
 
-export const ProductCard = ({ id, name, price, image_url, rating, reviews_count, stock }: ProductCardProps) => {
+export const ProductCard = ({ id, name, price, image_url, rating, reviews_count, stock, description }: ProductCardProps) => {
   const { user } = useAuth();
+  const { addToComparison } = useComparison();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +45,7 @@ export const ProductCard = ({ id, name, price, image_url, rating, reviews_count,
     checkWishlist();
   }, [user, id]);
 
-  const addToCart = async () => {
+  const handleAddToCart = async () => {
     if (!user) {
       toast.error("Please sign in to add items to cart");
       return;
@@ -77,7 +80,7 @@ export const ProductCard = ({ id, name, price, image_url, rating, reviews_count,
     }
   };
 
-  const toggleWishlist = async () => {
+  const handleToggleWishlist = async () => {
     if (!user) {
       toast.error("Please sign in to add to wishlist");
       return;
@@ -102,6 +105,10 @@ export const ProductCard = ({ id, name, price, image_url, rating, reviews_count,
     } catch (error) {
       toast.error("Failed to update wishlist");
     }
+  };
+
+  const handleAddToComparison = () => {
+    addToComparison({ id, name, price, image_url, description });
   };
 
   return (
@@ -150,15 +157,21 @@ export const ProductCard = ({ id, name, price, image_url, rating, reviews_count,
               <Button
                 size="icon"
                 variant="outline"
-                onClick={toggleWishlist}
+                onClick={handleToggleWishlist}
                 className="hover:text-destructive"
               >
                 <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-destructive text-destructive' : ''}`} />
               </Button>
-              
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={handleAddToComparison}
+              >
+                <GitCompare className="h-4 w-4" />
+              </Button>
               <Button
                 size="sm"
-                onClick={addToCart}
+                onClick={handleAddToCart}
                 disabled={stock === 0 || loading}
               >
                 <ShoppingCart className="h-4 w-4 mr-1" />

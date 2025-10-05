@@ -1,8 +1,13 @@
-
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = 'https://rppfafnnlverweyirprl.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwcGZhZm5ubHZlcndleWlycHJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1NjYzMDEsImV4cCI6MjA3NTE0MjMwMX0.bHrzxIovPX3Z6KlmxFl-lw6bWpwlO6PENEEJ3FmUYaY';
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+if (!supabaseKey) {
+  console.error('Error: SUPABASE_SERVICE_KEY environment variable not set.');
+  process.exit(1);
+}
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function main() {
@@ -26,7 +31,7 @@ async function main() {
       description: 'High-quality dog food for all breeds.',
       price: 25.99,
       stock: 100,
-      image_url: '/src/assets/dog-food.jpg',
+      image_url: '/public/assets/dog-food.jpg',
       category_id: categoryMap['dogs'],
     },
     {
@@ -34,7 +39,7 @@ async function main() {
       description: 'A fun and interactive toy for your cat.',
       price: 9.99,
       stock: 150,
-      image_url: '/src/assets/cat-toy.jpg',
+      image_url: '/public/assets/cat-toy.jpg',
       category_id: categoryMap['cats'],
     },
     {
@@ -42,7 +47,7 @@ async function main() {
       description: 'A spacious and comfortable cage for your bird.',
       price: 75.50,
       stock: 50,
-      image_url: '/src/assets/bird-cage.jpg',
+      image_url: '/public/assets/bird-cage.jpg',
       category_id: categoryMap['birds'],
     },
     {
@@ -50,7 +55,7 @@ async function main() {
       description: 'A multi-level habitat for your hamster.',
       price: 45.00,
       stock: 75,
-      image_url: '/src/assets/hamster-habitat.jpg',
+      image_url: '/public/assets/hamster-habitat.jpg',
       category_id: categoryMap['small-pets'],
     },
     {
@@ -62,7 +67,7 @@ async function main() {
         rating: 4.5,
         reviews_count: 120,
         is_featured: true,
-        image_url: '/src/assets/dog-food.jpg',
+        image_url: '/public/assets/dog-food.jpg',
       },
       {
         name: 'Interactive Cat Toy',
@@ -73,7 +78,7 @@ async function main() {
         rating: 4.8,
         reviews_count: 85,
         is_featured: true,
-        image_url: '/src/assets/cat-toy.jpg',
+        image_url: '/public/assets/cat-toy.jpg',
       },
       {
         name: 'Large Bird Cage',
@@ -84,7 +89,7 @@ async function main() {
         rating: 4.6,
         reviews_count: 45,
         is_featured: true,
-        image_url: '/src/assets/bird-cage.jpg',
+        image_url: '/public/assets/bird-cage.jpg',
       },
       {
         name: 'Hamster Habitat Kit',
@@ -95,7 +100,7 @@ async function main() {
         rating: 4.7,
         reviews_count: 62,
         is_featured: true,
-        image_url: '/src/assets/hamster-habitat.jpg',
+        image_url: '/public/assets/hamster-habitat.jpg',
       },
       {
         name: 'Dog Leash & Collar Set',
@@ -106,7 +111,7 @@ async function main() {
         rating: 4.4,
         reviews_count: 98,
         is_featured: false,
-        image_url: '/src/assets/dog-food.jpg',
+        image_url: '/public/assets/dog-leash.jpg',
       },
       {
         name: 'Cat Scratching Post',
@@ -117,7 +122,7 @@ async function main() {
         rating: 4.3,
         reviews_count: 71,
         is_featured: false,
-        image_url: '/src/assets/cat-toy.jpg',
+        image_url: '/public/assets/cat-scratch-post.jpg',
       },
       {
         name: 'Bird Food Mix',
@@ -128,7 +133,7 @@ async function main() {
         rating: 4.5,
         reviews_count: 54,
         is_featured: false,
-        image_url: '/src/assets/bird-cage.jpg',
+        image_url: '/public/assets/bird-food.jpg',
       },
       {
         name: 'Small Pet Bedding',
@@ -139,7 +144,40 @@ async function main() {
         rating: 4.2,
         reviews_count: 33,
         is_featured: false,
-        image_url: '/src/assets/hamster-habitat.jpg',
+        image_url: '/public/assets/small-pet-bedding.jpg',
+      },
+      {
+        name: 'Fish Tank Kit',
+        description: 'Complete starter kit for your new fish',
+        price: 99.99,
+        category_id: categoryMap['fish'],
+        stock: 25,
+        rating: 4.6,
+        reviews_count: 50,
+        is_featured: true,
+        image_url: '/public/assets/fish-tank.jpg',
+      },
+      {
+        name: 'Reptile Heat Lamp',
+        description: 'Essential for maintaining a healthy reptile habitat',
+        price: 29.99,
+        category_id: categoryMap['reptiles'],
+        stock: 40,
+        rating: 4.8,
+        reviews_count: 65,
+        is_featured: false,
+        image_url: '/public/assets/reptile-lamp.jpg',
+      },
+      {
+        name: 'Small Animal Playpen',
+        description: 'Safe and expandable play area for small pets',
+        price: 39.99,
+        category_id: categoryMap['small-pets'],
+        stock: 50,
+        rating: 4.5,
+        reviews_count: 42,
+        is_featured: false,
+        image_url: '/public/assets/small-animal-playpen.jpg',
       },
   ];
 

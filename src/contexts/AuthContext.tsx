@@ -40,22 +40,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const signUp = async (email: string, password: string, fullName: string) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: redirectUrl,
         data: {
           full_name: fullName,
         },
       },
     });
 
-    if (error) throw error;
-    toast.success("Account created successfully!");
-    navigate("/");
+    if (error) {
+      console.error("Error signing up:", error);
+      throw error;
+    }
+
+    await signIn(email, password);
   };
 
   const signIn = async (email: string, password: string) => {
@@ -64,14 +64,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       password,
     });
 
-    if (error) throw error;
+    if (error) {
+      console.error("Error signing in:", error);
+      throw error;
+    }
     toast.success("Welcome back!");
     navigate("/");
   };
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    if (error) {
+      console.error("Error signing out:", error);
+      throw error;
+    }
     toast.success("Signed out successfully");
     navigate("/");
   };

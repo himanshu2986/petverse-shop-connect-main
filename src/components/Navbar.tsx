@@ -73,11 +73,20 @@ export const Navbar = () => {
             <Link to="/shop">
               <Button variant="ghost">Shop</Button>
             </Link>
+            <Link to="/blog">
+              <Button variant="ghost">Blog</Button>
+            </Link>
             <Link to="/about">
               <Button variant="ghost">About Us</Button>
             </Link>
             <Link to="/contact">
               <Button variant="ghost">Contact Us</Button>
+            </Link>
+            <Link to="/profile">
+              <Button variant="ghost">Profile</Button>
+            </Link>
+            <Link to="/orders">
+              <Button variant="ghost">Orders</Button>
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
