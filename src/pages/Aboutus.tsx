@@ -1,10 +1,17 @@
 import { PawPrint } from "lucide-react";
-import { PageBanner } from "@/components/PageBanner";
 
 const Aboutus = () => {
   return (
     <div className="bg-background text-foreground">
-      <PageBanner title="About PetVerse" imageUrl="/assets/hero-pets.jpg" />
+      <header className="relative bg-primary text-primary-foreground py-20">
+        <div className="absolute inset-0 bg-black opacity-30"></div>
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">About PetVerse</h1>
+          <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+            Connecting pet lovers with the best products and services for their beloved companions.
+          </p>
+        </div>
+      </header>
 
       <main className="py-16">
         <div className="container mx-auto px-4">
