@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 interface AuthContextType {
   user: User | null;
@@ -11,8 +11,6 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   loading: boolean;
-  signInWithPhone: (phone: string) => Promise<void>;
-  verifyOtp: (phone: string, token: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -84,35 +82,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     navigate("/");
   };
 
-  const signInWithPhone = async (phone: string) => {
-    const { error } = await supabase.auth.signInWithOtp({
-      phone,
-    });
-
-    if (error) {
-      console.error("Error sending OTP:", error);
-      throw error;
-    }
-    toast.success("OTP sent to your phone");
-  };
-
-  const verifyOtp = async (phone: string, token: string) => {
-    const { error } = await supabase.auth.verifyOtp({
-      phone,
-      token,
-      type: 'sms'
-    });
-
-    if (error) {
-      console.error("Error verifying OTP:", error);
-      throw error;
-    }
-    toast.success("Signed in successfully");
-    navigate("/");
-  };
-
   return (
-    <AuthContext.Provider value={{ user, session, signUp, signIn, signOut, loading, signInWithPhone, verifyOtp }}>
+    <AuthContext.Provider value={{ user, session, signUp, signIn, signOut, loading }}>
       {children}
     </AuthContext.Provider>
   );

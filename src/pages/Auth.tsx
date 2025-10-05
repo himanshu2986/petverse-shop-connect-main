@@ -6,20 +6,17 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 import { PawPrint } from "lucide-react";
 import { PageBanner } from "@/components/PageBanner";
 
 const Auth = () => {
-  const { user, signIn, signUp, signInWithPhone, verifyOtp } = useAuth();
+  const { user, signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const [signInData, setSignInData] = useState({ email: "", password: "" });
   const [signUpData, setSignUpData] = useState({ email: "", password: "", fullName: "", confirmPassword: "" });
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -71,41 +68,6 @@ const Auth = () => {
     }
   };
 
-  const handlePhoneSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!phone) {
-      toast.error("Please enter your phone number");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await signInWithPhone(phone);
-      setOtpSent(true);
-    } catch (error: any) {
-      toast.error(error.message || "Failed to send OTP");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!otp) {
-      toast.error("Please enter the OTP");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await verifyOtp(phone, otp);
-    } catch (error: any) {
-      toast.error(error.message || "Failed to verify OTP");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div>
       <PageBanner title="Account" imageUrl="/placeholder.svg" />
@@ -120,10 +82,9 @@ const Auth = () => {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
-                <TabsTrigger value="phone">Phone</TabsTrigger>
               </TabsList>
 
               <TabsContent value="signin">
@@ -206,44 +167,6 @@ const Auth = () => {
                     {loading ? "Creating account..." : "Create Account"}
                   </Button>
                 </form>
-              </TabsContent>
-
-              <TabsContent value="phone">
-                {!otpSent ? (
-                  <form onSubmit={handlePhoneSignIn} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+1 123 456 7890"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? "Sending OTP..." : "Send OTP"}
-                    </Button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleVerifyOtp} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="otp">OTP</Label>
-                      <Input
-                        id="otp"
-                        type="text"
-                        placeholder="123456"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? "Verifying..." : "Verify OTP"}
-                    </Button>
-                  </form>
-                )}
               </TabsContent>
             </Tabs>
           </CardContent>
