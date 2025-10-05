@@ -40,7 +40,7 @@ const Index = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative h-[600px]">
+      <section className="relative banner h-[600px]">
         <div className="container mx-auto px-4 h-full">
           <div className="grid md:grid-cols-2 gap-8 h-full items-center">
             <div className="space-y-6">
