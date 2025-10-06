@@ -210,14 +210,14 @@ const Checkout = () => {
                     {cartItems.map(item => (
                       <li key={item.id} className="flex justify-between">
                         <span>{item.products.name} x {item.quantity}</span>
-                        <span>${(item.products.price * item.quantity).toFixed(2)}</span>
+                        <span>₹{(item.products.price * item.quantity).toFixed(2)}</span>
                       </li>
                     ))}
                   </ul>
                   <div className="space-y-2 py-4 border-y">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span className="font-semibold">${total.toFixed(2)}</span>
+                      <span className="font-semibold">₹{total.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Shipping</span>
@@ -226,7 +226,7 @@ const Checkout = () => {
                   </div>
                   <div className="flex justify-between text-xl font-bold">
                     <span>Total</span>
-                    <span className="text-primary">${total.toFixed(2)}</span>
+                    <span className="text-primary">₹{total.toFixed(2)}</span>
                   </div>
                   <Button size="lg" className="w-full" type="submit" disabled={isProcessing}>
                     {isProcessing ? "Placing Order..." : "Place Order"}

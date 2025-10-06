@@ -82,12 +82,6 @@ export const Navbar = () => {
             <Link to="/contact">
               <Button variant="ghost">Contact Us</Button>
             </Link>
-            <Link to="/profile">
-              <Button variant="ghost">Profile</Button>
-            </Link>
-            <Link to="/orders">
-              <Button variant="ghost">Orders</Button>
-            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost">More</Button>
@@ -128,12 +122,6 @@ export const Navbar = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => navigate("/profile")}>
-                      Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => navigate("/orders")}>
-                      Orders
-                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={signOut}>
                       Sign Out
                     </DropdownMenuItem>

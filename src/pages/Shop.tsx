@@ -22,8 +22,15 @@ const Shop = () => {
   }, []);
 
   useEffect(() => {
-    fetchProducts();
-  }, [selectedCategory, sortBy, searchParams]);
+    setSelectedCategory(searchParams.get("category") || "all");
+  }, [searchParams]);
+
+  useEffect(() => {
+    // Only fetch products if categories are loaded, or if there's no category filter
+    if (categories.length > 0 || !searchParams.get("category")) {
+      fetchProducts();
+    }
+  }, [selectedCategory, sortBy, searchParams, categories]);
 
   const fetchCategories = async () => {
     const { data } = await supabase.from("categories").select("*");
@@ -117,8 +124,8 @@ const Shop = () => {
                   className="mb-4"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>${priceRange[0]}</span>
-                  <span>${priceRange[1]}</span>
+                  <span>₹{priceRange[0]}</span>
+                  <span>₹{priceRange[1]}</span>
                 </div>
                 <Button onClick={fetchProducts} className="w-full mt-4">
                   Apply Filter

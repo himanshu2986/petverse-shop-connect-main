@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "module": "CommonJS"
+  },
+  "include": ["src/integrations/supabase/seed.ts"]
+}

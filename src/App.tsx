@@ -12,7 +12,7 @@ import Auth from "./pages/Auth";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
-import AboutUs from "./pages/AboutUs";
+import AboutUs from "./pages/Aboutus";
 import NotFound from "./pages/NotFound";
 import ContactUs from "./pages/ContactUs";
 import ShippingInfo from "./pages/ShippingInfo";

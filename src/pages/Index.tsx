@@ -1,40 +1,14 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ProductCard } from "@/components/ProductCard";
-import { supabase } from "@/integrations/supabase/client";
-import { ArrowRight, Dog, Cat, Bird, Rabbit, ShieldCheck, Truck, Users } from "lucide-react";
+import { FeaturedProducts } from "../components/FeaturedProducts";
+import { ArrowRight, Dog, Cat, ShieldCheck, Truck, Users, PawPrint, Heart } from "lucide-react";
 
 const Index = () => {
-  const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchFeaturedProducts();
-  }, []);
-
-  const fetchFeaturedProducts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .eq("is_featured", true)
-        .limit(4);
-
-      if (error) throw error;
-      setFeaturedProducts(data || []);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const categories = [
     { name: "Dogs", slug: "dogs", icon: Dog, color: "text-primary" },
     { name: "Cats", slug: "cats", icon: Cat, color: "text-secondary" },
-    { name: "Birds", slug: "birds", icon: Bird, color: "text-accent" },
-    { name: "Small Pets", slug: "small-pets", icon: Rabbit, color: "text-primary" },
+    { name: "Trained Dogs", slug: "trained-dogs", icon: PawPrint, color: "text-secondary" },
+    { name: "Pets Medicines", slug: "pets-medicines", icon: Heart, color: "text-accent" },
   ];
 
   return (
@@ -93,41 +67,14 @@ const Index = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold">Featured Products</h2>
-            <Link to="/shop">
-              <Button variant="ghost">
-                View All
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-96 bg-muted animate-pulse rounded-lg" />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredProducts.map((product) => (
-                <ProductCard key={product.id} {...product} />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+      <FeaturedProducts />
 
       {/* Why Choose Us Section */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose PetVerse?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <ShieldCheck className="h-12 w-12 mx-auto mb-4 text-primary" />
+                      <h2 className="text-3xl font-bold text-center mb-12">Why Choose PetVerse?</h2>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="text-center p-6">              <ShieldCheck className="h-12 w-12 mx-auto mb-4 text-primary" />
               <h3 className="text-xl font-semibold mb-2">Premium Quality</h3>
               <p className="text-muted-foreground">We source only the best products for your pets, ensuring their health and happiness.</p>
             </div>

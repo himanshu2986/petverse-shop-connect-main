@@ -179,6 +179,17 @@ async function main() {
         is_featured: false,
         image_url: '/public/assets/small-animal-playpen.jpg',
       },
+      {
+        name: 'Trained Dogs',
+        description: 'Well-trained dogs for your family.',
+        price: 999.99,
+        category_id: categoryMap['dogs'],
+        stock: 10,
+        rating: 5.0,
+        reviews_count: 10,
+        is_featured: true,
+        image_url: '/public/assets/trained-dog.jpg',
+      },
   ];
 
   const { data, error } = await supabase.from('products').insert(products);

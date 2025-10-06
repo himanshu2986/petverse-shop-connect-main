@@ -150,7 +150,7 @@ export const ProductCard = ({ id, name, price, image_url, rating, reviews_count,
 
           <div className="flex items-center justify-between pt-2">
             <span className="text-2xl font-bold text-primary">
-              ${price.toFixed(2)}
+              ₹{price.toFixed(2)}
             </span>
 
             <div className="flex space-x-2">
