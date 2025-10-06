@@ -32,6 +32,8 @@ import Faq from "./pages/Faq";
 import StoreLocator from "./pages/StoreLocator";
 import GiftCards from "./pages/GiftCards";
 import Subscriptions from "./pages/Subscriptions";
+import TrainedDogs from "./pages/TrainedDogs";
+import RescueProgram from "./pages/RescueProgram";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +74,8 @@ const App = () => (
                   <Route path="/stores" element={<StoreLocator />} />
                   <Route path="/gift-cards" element={<GiftCards />} />
                   <Route path="/subscriptions" element={<Subscriptions />} />
+                  <Route path="/trained-dogs" element={<TrainedDogs />} />
+                  <Route path="/rescue-program" element={<RescueProgram />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

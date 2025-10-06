@@ -92,6 +92,68 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Trained Dogs Section */}
+      <section className="py-20 bg-muted/40">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold">Paws with a Purpose: Our Trained Dogs</h2>
+              <p className="text-lg text-muted-foreground">
+                Our expertly trained dogs are more than just pets—they are life-changers. From assisting individuals with disabilities to providing therapeutic comfort, our dogs are making a tangible difference in the community every single day.
+              </p>
+              <div className="flex gap-8">
+                <div>
+                  <p className="text-3xl font-bold text-primary">10</p>
+                  <p className="text-muted-foreground">Dogs Trained & Placed</p>
+                </div>
+              </div>
+              <Link to="/trained-dogs">
+                <Button size="lg" className="mt-4">
+                  <PawPrint className="mr-2 h-5 w-5" />
+                  Learn More About Our Programs
+                </Button>
+              </Link>
+            </div>
+            <div>
+              <img src="/assets/rescue 1.jpg" alt="Trained dog assisting a person" className="rounded-lg shadow-lg w-full h-auto" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Rescue Program Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6 md:order-2">
+              <h2 className="text-4xl font-bold">Giving a Second Chance: Our Rescue Program</h2>
+              <p className="text-lg text-muted-foreground">
+                We are dedicated to rescuing, treating, and rehoming animals in need. Our team works tirelessly to provide a safe haven for stray and abandoned animals, giving them a chance to find a loving forever home.
+              </p>
+              <div className="flex gap-8">
+                <div>
+                  <p className="text-3xl font-bold text-primary">20+</p>
+                  <p className="text-muted-foreground">Animals Rescued</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-primary">10</p>
+                  <p className="text-muted-foreground">Adoptions</p>
+                </div>
+              </div>
+              <Link to="/rescue-program">
+                <Button size="lg" className="mt-4">
+                  <Heart className="mr-2 h-5 w-5" />
+                  Learn More About Our Rescue Efforts
+                </Button>
+              </Link>
+            </div>
+            <div className="md:order-1">
+              <img src="/assets/rescue 2.jpg" alt="A rescued animal" className="rounded-lg shadow-lg w-full h-auto" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center space-y-6">
