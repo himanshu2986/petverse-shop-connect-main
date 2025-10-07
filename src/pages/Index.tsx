@@ -119,7 +119,7 @@ const Index = () => {
               </Link>
             </div>
             <div>
-              <img src="/assets/rescue 2.jpg" alt="A rescued animal" className="rounded-lg shadow-lg w-full h-auto" />
+              <img src="/assets/dogrescue.webp" alt="A rescued animal" className="rounded-lg shadow-lg w-full h-auto" />
             </div>
           </div>
         </div>
