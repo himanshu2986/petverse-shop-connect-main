@@ -11,6 +11,7 @@ import { PageBanner } from "@/components/PageBanner";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Tables } from "@/integrations/supabase/types";
 
 const checkoutSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -25,10 +26,16 @@ const checkoutSchema = z.object({
 
 type CheckoutForm = z.infer<typeof checkoutSchema>;
 
+type Product = Tables<"products">;
+
+interface CartItem extends Tables<"cart_items"> {
+  products: Product;
+}
+
 const Checkout = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
 

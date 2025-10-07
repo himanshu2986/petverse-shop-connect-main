@@ -7,11 +7,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { PageBanner } from "@/components/PageBanner";
+import { Tables } from "@/integrations/supabase/types";
+
+type Product = Tables<"products">;
+
+interface CartItem extends Tables<"cart_items"> {
+  products: Product;
+}
 
 const Cart = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

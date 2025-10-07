@@ -3,9 +3,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  excerpt?: string;
+  image_url?: string;
+  author_id?: string;
+  created_at: string;
+}
+
 const Article = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<any>(null);
+  const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,7 +24,7 @@ const Article = () => {
       setLoading(true);
       try {
         const { data, error } = await supabase
-          .from("posts")
+          .from("blogs")
           .select("*")
           .eq("slug", slug)
           .single();

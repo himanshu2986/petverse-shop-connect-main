@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ProductCard } from "@/components/ProductCard";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,37 +7,28 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { PageBanner } from "@/components/PageBanner";
+import { Tables } from "@/integrations/supabase/types";
+
+type Product = Tables<"products">;
+type Category = Tables<"categories">;
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [products, setProducts] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const [priceRange, setPriceRange] = useState([0, 2000]);
-  const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all");
+  const [priceRange, setPriceRange] = useState([0, 50000]);
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get("category") || "all"
+  );
   const [sortBy, setSortBy] = useState("name");
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    setSelectedCategory(searchParams.get("category") || "all");
-  }, [searchParams]);
-
-  useEffect(() => {
-    // Only fetch products if categories are loaded, or if there's no category filter
-    if (categories.length > 0 || !searchParams.get("category")) {
-      fetchProducts();
-    }
-  }, [selectedCategory, sortBy, searchParams, categories]);
 
   const fetchCategories = async () => {
     const { data } = await supabase.from("categories").select("*");
     setCategories(data || []);
   };
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
       let query = supabase.from("products").select("*");
@@ -76,7 +67,22 @@ const Shop = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [categories, priceRange, searchParams, selectedCategory, sortBy]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    setSelectedCategory(searchParams.get("category") || "all");
+  }, [searchParams]);
+
+  useEffect(() => {
+    // Only fetch products if categories are loaded, or if there's no category filter
+    if (categories.length > 0 || !searchParams.get("category")) {
+      fetchProducts();
+    }
+  }, [fetchProducts, categories.length, searchParams]);
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
@@ -117,7 +123,7 @@ const Shop = () => {
                 <Label className="text-lg font-semibold mb-4 block">Price Range</Label>
                 <Slider
                   min={0}
-                  max={2000}
+                  max={50000}
                   step={10}
                   value={priceRange}
                   onValueChange={setPriceRange}

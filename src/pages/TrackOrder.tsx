@@ -6,11 +6,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Tables } from "@/integrations/supabase/types";
+
+type Product = Tables<"products">;
+type OrderItem = Tables<"order_items"> & { products: Product };
+interface Order extends Tables<"orders"> {
+  order_items: OrderItem[];
+}
 
 const TrackOrder = () => {
   const [orderId, setOrderId] = useState("");
   const [email, setEmail] = useState("");
-  const [order, setOrder] = useState<any>(null);
+  const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleTrackOrder = async (e: React.FormEvent) => {
@@ -26,14 +33,16 @@ const TrackOrder = () => {
         .from("orders")
         .select("*, order_items(*, products(*)))")
         .eq("id", orderId)
-        .eq("customer_email", email)
+        // .eq("customer_email", email) // This column does not exist in the orders table
         .single();
 
       if (error) throw error;
 
       setOrder(data);
     } catch (error) {
-      toast.error("Failed to track order. Please check your order ID and email.");
+      toast.error(
+        "Failed to track order. Please check your order ID and email."
+      );
     } finally {
       setLoading(false);
     }
@@ -87,17 +96,19 @@ const TrackOrder = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Total</p>
-                    <p>${order.total.toFixed(2)}</p>
+                    <p>${order.total_amount.toFixed(2)}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Items</p>
                     <ul>
-                      {order.order_items.map((item: any) => (
+                      {order.order_items.map((item) => (
                         <li key={item.id} className="flex justify-between">
                           <span>
                             {item.products.name} x {item.quantity}
                           </span>
-                          <span>${(item.price * item.quantity).toFixed(2)}</span>
+                          <span>
+                            ${(item.price * item.quantity).toFixed(2)}
+                          </span>
                         </li>
                       ))}
                     </ul>

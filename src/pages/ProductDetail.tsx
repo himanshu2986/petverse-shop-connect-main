@@ -7,12 +7,19 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { PageBanner } from "@/components/PageBanner";
+import { Tables } from "@/integrations/supabase/types";
+
+type Category = Tables<"categories">;
+
+interface Product extends Tables<"products"> {
+  categories: Category;
+}
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
 

@@ -5,10 +5,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { ProductCard } from "@/components/ProductCard";
 import { PageBanner } from "@/components/PageBanner";
+import { Tables } from "@/integrations/supabase/types";
+
+type Product = Tables<"products">;
+
+interface WishlistItem {
+  id: string;
+  product: Product;
+}
 
 const Wishlist = () => {
   const { user } = useAuth();
-  const [wishlistItems, setWishlistItems] = useState<any[]>([]);
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

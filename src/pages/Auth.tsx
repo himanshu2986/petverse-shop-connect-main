@@ -34,8 +34,12 @@ const Auth = () => {
     setLoading(true);
     try {
       await signIn(signInData.email, signInData.password);
-    } catch (error: any) {
-      toast.error(error.message || "Failed to sign in");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message || "Failed to sign in");
+      } else {
+        toast.error("An unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }
@@ -61,8 +65,12 @@ const Auth = () => {
     setLoading(true);
     try {
       await signUp(signUpData.email, signUpData.password, signUpData.fullName);
-    } catch (error: any) {
-      toast.error(error.message || "Failed to sign up");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message || "Failed to sign up");
+      } else {
+        toast.error("An unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }
