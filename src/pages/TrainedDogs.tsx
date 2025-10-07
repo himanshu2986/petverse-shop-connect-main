@@ -1,4 +1,3 @@
-
 import { PageBanner } from "@/components/PageBanner";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -6,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const TrainedDogs = () => {
   const images = [
-    { src: "/assets/rescue 1.jpg", position: "object-bottom" },
-    { src: "/assets/rescue 2.jpg", position: "object-center" },
-    { src: "/assets/rescue 3.jpg", position: "object-[50%_75%]" },
+    { src: "/assets/trained-dog.jpg", position: "object-bottom" },
+    { src: "/assets/trained-dog.jpg", position: "object-center" },
+    { src: "/assets/trained-dog.jpg", position: "object-[50%_75%]" },
   ];
 
 
@@ -35,15 +34,15 @@ const TrainedDogs = () => {
             </Carousel>
           </div>
           <div>
-            <h2 className="text-3xl font-bold mb-4">Our Achievements</h2>
+            <h2 className="text-3xl font-bold mb-4">Request a Trained Dog</h2>
             <p className="text-muted-foreground mb-4">
-              We are incredibly proud of the work our trained dogs do. They are not just animals; they are heroes in their own right. Our dogs have been placed in various roles, from service animals for individuals with disabilities to therapy dogs in hospitals and schools.
+              Our expertly trained dogs are more than just pets—they are life-changers. From assisting individuals with disabilities to providing therapeutic comfort, our dogs are making a tangible difference in the community every single day.
             </p>
             <p className="text-muted-foreground mb-8">
-              Each dog undergoes a rigorous training program tailored to its future role. We work closely with government bodies and non-profit organizations to ensure our dogs meet the highest standards of training and temperament.
+              If you are in need of a trained dog, please contact us to discuss your requirements. We work closely with you to find the perfect match.
             </p>
             <Link to="/contact-us">
-              <Button>Contact Us to Learn More</Button>
+              <Button>Request a Trained Dog</Button>
             </Link>
           </div>
         </div>

@@ -13,7 +13,7 @@ const Shop = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [priceRange, setPriceRange] = useState([0, 200]);
+  const [priceRange, setPriceRange] = useState([0, 2000]);
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "all");
   const [sortBy, setSortBy] = useState("name");
 
@@ -117,7 +117,7 @@ const Shop = () => {
                 <Label className="text-lg font-semibold mb-4 block">Price Range</Label>
                 <Slider
                   min={0}
-                  max={200}
+                  max={2000}
                   step={10}
                   value={priceRange}
                   onValueChange={setPriceRange}

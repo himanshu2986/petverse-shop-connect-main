@@ -76,6 +76,9 @@ export const Navbar = () => {
             <Link to="/blog">
               <Button variant="ghost">Blog</Button>
             </Link>
+            <Link to="/rescue-dogs">
+              <Button variant="ghost">Rescue Dogs</Button>
+            </Link>
             <Link to="/about">
               <Button variant="ghost">About Us</Button>
             </Link>
@@ -92,6 +95,12 @@ export const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate("/returns")}>
                   Return Policy
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/rescue-program")}>
+                  Rescue Program
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/trained-dogs")}>
+                  Trained Dogs
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
