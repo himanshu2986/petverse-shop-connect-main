@@ -41,7 +41,7 @@ const TrainedDogs = () => {
             <p className="text-muted-foreground mb-8">
               If you are in need of a trained dog, please contact us to discuss your requirements. We work closely with you to find the perfect match.
             </p>
-            <Link to="/contact-us">
+            <Link to="/contact">
               <Button>Request a Trained Dog</Button>
             </Link>
           </div>
