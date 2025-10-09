@@ -13,9 +13,9 @@ const RescueDogs = () => {
       <PageBanner title="Our Rescuees" imageUrl="/assets/rescue 1.jpg" />
       <div className="container mx-auto px-4 py-16">
         <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">Meet the People We've Helped</h2>
+            <h2 className="text-3xl font-bold mb-4">Meet the Animals We've Helped</h2>
             <p className="text-muted-foreground mb-8">
-                Here are some of the people we have had the privilege to help and support.
+                Here are some of the animals we have had the privilege to help and support.
             </p>
         </div>
         <Carousel className="w-full max-w-4xl mx-auto">
